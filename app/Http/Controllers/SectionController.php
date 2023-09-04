@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Section;
 use App\Traits\WebResponce;
 use Illuminate\Http\Request;
-use App\DataTables\SectionsDataTable;
-use App\Repositories\SectionRepository;
 use App\Services\FileService;
+use App\DataTables\SectionsDataTable;
+use App\Http\Requests\SectionRequest;
+use App\Repositories\SectionRepository;
 
 class SectionController extends Controller
 {
@@ -23,7 +24,6 @@ class SectionController extends Controller
 
     public function index(SectionsDataTable $dataTable)
     {
-        // return $dataTable->ajax()->content();
         if (request()->ajax()) {
             return $dataTable->ajax()->content();
         }
@@ -45,7 +45,7 @@ class SectionController extends Controller
         return view('admin.sections.create', compact('section'));
     }
 
-    public function store(Request $request)
+    public function store(SectionRequest $request)
     {
         try {
             $this->sectionRepository->StoreNew($request);
@@ -68,10 +68,9 @@ class SectionController extends Controller
         return view('admin.sections.edit', compact('section'));
     }
 
-    public function update(Request $request, $id)
+    public function update(SectionRequest $request, $id)
     {
         try {
-
             $section = $this->sectionRepository->Update($request);
             return $this->success("تم التحديث بنجاح", 'sections.index');
 

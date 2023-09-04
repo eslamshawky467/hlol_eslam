@@ -7,6 +7,8 @@
                     <input type="text" id="projectinput1" class="form-control" placeholder="الاسم بالعربى"
                         name="section_name_ar"
                         value="{{ old('section_name_ar', $section->translate('ar')->section_name ?? '') }}">
+                    <x-form.validation name='section_name_ar' />
+
                 </div>
             </div>
         </div>
@@ -17,7 +19,10 @@
                     <input type="text" id="projectinput2" class="form-control" placeholder="اسم بالانجليزى"
                         name="section_name_en"
                         value="{{ old('section_name_en', $section->translate('en')->section_name ?? '') }}">
+                    <x-form.validation name='section_name_en' />
+
                 </div>
+
             </div>
         </div>
         <x-parent-sections id="{{ $section->id }}" />
@@ -29,6 +34,8 @@
                         <input type="file" id="file" name="section_image">
                         <span class="file-custom"></span>
                     </label>
+                    <x-form.validation name='section_image' />
+
                 </div>
             </div>
         </div>
@@ -47,6 +54,8 @@
                                 value="0" @if ($section->active == 0) checked @endif>
                             <label class="custom-control-label" for="no">غير مفعل</label>
                         </div>
+                        <x-form.validation name='active' />
+
                     </div>
                 </div>
             </div>

@@ -9,6 +9,8 @@
                     <option value="{{ $item->id }}">{{ $item->translate('ar')->section_name }}</option>
                 @endforeach
             </select>
+            <x-form.validation name='parent_id' />
+
         </div>
     </div>
 </div>

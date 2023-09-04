@@ -1,48 +1,59 @@
 <x-admin title="الاقسام">
     <x-slot name="breadcrumbs">
-        <x-bread-crumbs title="الاقسام">
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <x-bread-crumbs title="الاقسام">
 
-        </x-bread-crumbs>
-        <section id="html5">
-            @include('admin.alerts.errors')
-            @include('admin.alerts.success')
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">قائمه الاقسام</h4>
-                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                            <div class="heading-elements">
-                                <ul class="list-inline mb-0">
-                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                    <li><a data-action="close"><i class="ft-x"></i></a></li>
-                                </ul>
-                            </div>
+                </x-bread-crumbs>
+                <div class="content-header-right col-md-6 col-12">
+                    <div class=" float-md-right">
+                        <a href="{{ route('sections.create') }}" class="btn btn-primary round btn-glow px-2"
+                            type="button">انشاء قسم جديد</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </x-slot>
+    <section id="html5">
+        @include('admin.alerts.errors')
+        @include('admin.alerts.success')
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">قائمه الاقسام</h4>
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                <li><a data-action="close"><i class="ft-x"></i></a></li>
+                            </ul>
                         </div>
-                        <div class="card-content collapse show">
-                            <div class="card-body card-dashboard">
-                                <table class="table table-striped table-bordered sections-table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>الاسم</th>
-                                            <th>نوع القسم</th>
-                                            <th>الحاله</th>
-                                            <th> الصوره</th>
-                                            <th>العمليات</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                    </div>
+                    <div class="card-content collapse show">
+                        <div class="card-body card-dashboard">
+                            <table class="table table-striped table-bordered sections-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>الاسم</th>
+                                        <th>نوع القسم</th>
+                                        <th>الحاله</th>
+                                        <th> الصوره</th>
+                                        <th>العمليات</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
-                @include('admin.sections.delete-modal')
             </div>
-        </section>
-    </x-slot>
+            @include('admin.sections.delete-modal')
+        </div>
+    </section>
     @push('css')
         <link rel="stylesheet" type="text/css"
             href="{{ asset('app-assets/vendors/css/tables/datatable/datatables.min.css') }}">
