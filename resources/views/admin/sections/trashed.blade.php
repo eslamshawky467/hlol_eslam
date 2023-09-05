@@ -23,18 +23,28 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body card-dashboard">
-                                <table class="table table-striped table-bordered sections-table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>الاسم</th>
-                                            <th>نوع القسم</th>
-                                            <th>الحاله</th>
-                                            <th> الصوره</th>
-                                            <th>العمليات</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <button onClick="checkAll(this)"
+                                    class="btn  btn-warning ml-1 mb-3 float-lg-right btn-xs">اختيار
+                                    الكل</button>
+                                <button onClick="deCheckAll(this)"
+                                    class="btn btn-info ml-1 mb-3 float-lg-right">تصفيه</button>
+                                <form action="{{ route('sections.muliple.restore') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary ml-1 mb-3 float-lg-right">استعاده
+                                        الكل</button>
+                                    <table class="table table-striped table-bordered sections-table">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>الاسم</th>
+                                                <th>نوع القسم</th>
+                                                <th>الحاله</th>
+                                                <th> الصوره</th>
+                                                <th>العمليات</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -111,6 +121,24 @@
                     ]
                 });
             });
+        </script>
+        <script language="JavaScript">
+            function checkAll(source) {
+                var ele = document.getElementsByName('section_ids[]');
+                for (var i = 0; i < ele.length; i++) {
+                    if (ele[i].type == 'checkbox')
+                        ele[i].checked = true;
+                }
+            }
+
+            function deCheckAll() {
+                var ele = document.getElementsByName('section_ids[]');
+                for (var i = 0; i < ele.length; i++) {
+                    if (ele[i].type == 'checkbox')
+                        ele[i].checked = false;
+
+                }
+            }
         </script>
     @endpush
 </x-admin>

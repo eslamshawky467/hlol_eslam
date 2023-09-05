@@ -18,6 +18,7 @@
     <section id="html5">
         @include('admin.alerts.errors')
         @include('admin.alerts.success')
+        @include('admin.alerts.validation')
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -34,19 +35,31 @@
                         </div>
                     </div>
                     <div class="card-content collapse show">
+                        <x-multivalidation name="section_ids" />
                         <div class="card-body card-dashboard">
-                            <table class="table table-striped table-bordered sections-table">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>الاسم</th>
-                                        <th>نوع القسم</th>
-                                        <th>الحاله</th>
-                                        <th> الصوره</th>
-                                        <th>العمليات</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                            <button onClick="checkAll(this)" class="btn btn-warning ml-1 mb-3 float-lg-right">اختيار
+                                الكل</button>
+                            <button onClick="deCheckAll(this)"
+                                class="btn btn-info ml-1 mb-3 float-lg-right">تصفيه</button>
+                            <form action="{{ route('sections.muliple.archive') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary ml-1 mb-3 float-lg-right" name="action"
+                                    value="archive">ارشقه الكل</button>
+                                <button type="submit" class="btn btn-danger ml-1 mb-3 float-lg-right" name="action"
+                                    value="delete">حذف الكل</button>
+                                <table class="table table-striped table-bordered sections-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>الاسم</th>
+                                            <th>نوع القسم</th>
+                                            <th>الحاله</th>
+                                            <th> الصوره</th>
+                                            <th>العمليات</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -82,7 +95,7 @@
                 $('.sections-table').DataTable({
                     processing: true,
                     serverSide: true,
-                    searching: false,
+                    searching: true,
                     dom: 'Blfrtip',
                     buttons: [
                         'copy',
@@ -134,6 +147,25 @@
                 document.getElementById('section_name').textContent = "  هل متاكد من حذف القسم : " + section_name
 
             });
+        </script>
+        <script language="JavaScript">
+            function checkAll(source) {
+                // alert('flkgjdf;lkg');
+                var ele = document.getElementsByName('section_ids[]');
+                for (var i = 0; i < ele.length; i++) {
+                    if (ele[i].type == 'checkbox')
+                        ele[i].checked = true;
+                }
+            }
+
+            function deCheckAll() {
+                var ele = document.getElementsByName('section_ids[]');
+                for (var i = 0; i < ele.length; i++) {
+                    if (ele[i].type == 'checkbox')
+                        ele[i].checked = false;
+
+                }
+            }
         </script>
     @endpush
 </x-admin>

@@ -19,13 +19,13 @@ class SectionsDataTable extends DataTable
      */
     public function dataTable($query)
     {
-
-        // $query->filter('section_name', function ($query, $keyword) {
-        //     $query->with('translations');
-        // });
-
         return datatables()
-            ->eloquent($query)
+            ->eloquent($query->with('_parent'))
+            ->filter(function ($query) {
+                if (request()->has('search')) {
+                    $query->whereTranslationLike('section_name', '%' . request('search')['value'] . '%')->get();
+                }
+            })
             ->addColumn('action', function ($row) {
                 if ($this->trash == null) {
                     $btn = '<a href="' . route('section.delete', $row->id) . '" class="btn btn-outline-primary btn-sm">ارشفه</a>';
@@ -37,12 +37,13 @@ class SectionsDataTable extends DataTable
                 return $btn;
             })
             ->addColumn('image', function ($row) {
-                $image = '';
+                $image = 'uploads/sections/default.jpg';
                 if ($row->file->first())
                     $image = $row->file->first()->file_name;
-                return "<img style='width:100px; height:100px' src='" . asset('storage/' . $image) . "'/>";
+                return "<img style='width:80px; height:60px' src='" . asset('storage/' . $image) . "'/>";
 
             })
+
             ->rawColumns(['action'])
             ->editColumn('active', function ($row) {
                 $status = '';
@@ -55,12 +56,15 @@ class SectionsDataTable extends DataTable
             })
             ->editColumn('parent_id', function ($row) {
                 if ($row->parent_id)
-                    return $row->parent_id;
+                    return $row->_parent->section_name;
                 else
                     return "قسم رئيسى";
 
 
-            });
+            })->editColumn('id', function ($row) {
+            return "<input type='checkbox' name='section_ids[]' value='$row->id'/>";
+        })
+        ;
     }
 
     /**

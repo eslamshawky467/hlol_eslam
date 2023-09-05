@@ -19,10 +19,14 @@ Route::get('/', [AdminLoginController::class, 'login'])->middleware('guest')->na
 Route::post('/login', [AdminLoginController::class, 'getLogin'])->middleware('guest')->name('admin.getLogin');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('logout');
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/sections/archived-sections', [SectionController::class, 'ArchivedSections'])->name('sections.archived.sections');
     Route::post('/delete-forever', [SectionController::class, 'DeleteForever'])->name('section.delete.forever');
     Route::get('/section-delete/{id}', [SectionController::class, 'destroy'])->name('section.delete');
     Route::get('/section-restore/{id}', [SectionController::class, 'RestoreElement'])->name('section.restore');
+    Route::post('sections/archive-all', [SectionController::class, 'ArchiveAll'])->name('sections.muliple.archive');
+    Route::post('sections/restore-all', [SectionController::class, 'RestoreAll'])->name('sections.muliple.restore');
     Route::resource("sections", \SectionController::class);
 });

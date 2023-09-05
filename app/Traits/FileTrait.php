@@ -41,13 +41,8 @@ trait FileTrait
 
     public function downloadFile($file_name)
     {
-
         $path = storage_path('app/public/' . $file_name);
         return response()->download($path);
-
-        // if (file_exists('storage/'.$file_name)) {
-        //     return response()->download($path);
-        // }
 
     }
 

@@ -6,15 +6,16 @@ use App\DTO\FileDTO;
 use App\Models\File;
 use App\Traits\FileTrait;
 use App\Events\CreateFileEvent;
+use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
     use FileTrait;
 
-    public function CreateFileDTO($file,$model,$folder)
+    public function CreateFileDTO($file, $model, $folder)
     {
 
-        return  new FileDTO(
+        return new FileDTO(
             $file,
             $folder,
             $model->translate('en')->section_name,
@@ -23,8 +24,9 @@ class FileService
         );
 
     }
-    public function CreateFile($file, $model,$folder){
-        $data = $this->CreateFileDTO($file, $model,$folder);
+    public function CreateFile($file, $model, $folder)
+    {
+        $data = $this->CreateFileDTO($file, $model, $folder);
 
         $file_name = $this->saveFile($data->file, $data->folder, $data->subFolder);
         $file_type = $this->FileType($data->file->clientExtension());
@@ -35,5 +37,13 @@ class FileService
         $images->Fileable_type = $data->class;
         $images->type = $file_type;
         $images->save();
+    }
+
+
+    public function DeleteFile($model, $folder)
+    {
+        (Storage::disk('public')->deleteDirectory($folder));
+        $model->file()->delete();
+        return true;
     }
 }

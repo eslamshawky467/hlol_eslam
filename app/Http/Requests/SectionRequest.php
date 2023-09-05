@@ -25,8 +25,20 @@ class SectionRequest extends FormRequest
     public function rules()
     {
         return [
-            'section_name_ar' => ['required', 'string'],
-            'section_name_en' => ['required', 'string'],
+            'section_name_ar' => [
+                'required',
+                'string',
+                Rule::unique('section_translations', 'section_name')->where(function ($q) {
+                    $q->where('locale', '=', 'ar');
+                })->ignore($this->id, 'section_id'),
+            ],
+            'section_name_en' => [
+                'required',
+                'string',
+                Rule::unique('section_translations', 'section_name')->where(function ($q) {
+                    $q->where('locale', '=', 'en');
+                })->ignore($this->id, 'section_id'),
+            ],
             'section_image' => ['nullable', 'mimes:jpeg,png,jpg'],
             'parent_id' => ['nullable', Rule::exists('sections', 'id')],
         ];

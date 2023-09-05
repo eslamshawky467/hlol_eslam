@@ -21,10 +21,18 @@
                     <div class="card-content collpase show">
                         <div class="card-body">
                             <form method="POST" action="{{ route('sections.update', $section->id) }}"
-                                class="form form-horizontal">
+                                enctype="multipart/form-data" class="form form-horizontal">
                                 @csrf
                                 @method('PUT')
                                 @include('admin.sections.__form')
+                                @if ($section->file->first->count())
+                                    <div class="col-md-12">
+                                        <div class="form-group row d-flex justify-content-center">
+                                            <img style='width:150px; height:100px' class=""
+                                                src='{{ asset('/storage/' . $section->file->first()->file_name) }}' />
+                                        </div>
+                                    </div>
+                                @endif
                                 <input type="hidden" name="id" value="{{ $section->id }}">
                                 <div class="form-actions">
                                     <button type="button" class="btn btn-warning mr-1">

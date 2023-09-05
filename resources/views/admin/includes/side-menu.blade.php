@@ -10,11 +10,13 @@
                             data-i18n="nav.project.main">الاقسام</span></a>
                     <ul class="menu-content">
                         <li><a class="menu-item" href="{{ route('sections.index') }}"
-                                data-i18n="nav.project.project_summary">عرض الاقسام</a>
+                                data-i18n="nav.project.project_summary">عرض الاقسام <span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Section::count() }}</span></a>
                         </li>
                         <li><a class="menu-item" href="{{ route('sections.archived.sections') }}"
                                 data-i18n="nav.project.project_tasks">عرض
-                                الاقسام المؤرشفه</a>
+                                الاقسام المؤرشفه<span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Section::onlyTrashed()->count() }}</span></a>
                         </li>
                         <li><a class="menu-item" href="project-bugs.html" data-i18n="nav.project.project_bugs">Project
                                 Bugs</a>

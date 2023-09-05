@@ -54,10 +54,20 @@ class SectionRepository implements CRUDInterface
     {
 
         $sectionData = $this->sectionService->CreateDTO($SectionData);
+
         $Section = $this->sectionService->FindById($sectionData->section_id);
+
         if ($Section != null) {
-            return $this->sectionService->CreateOrUpdate($sectionData);
+            $section = $this->sectionService->CreateOrUpdate($sectionData);
+
+            if ($SectionData->hasFile('section_image')) {
+                $this->fileService->DeleteFile($section, 'uploads/sections/' . $Section->translate('en')->section_name);
+                $this->fileService->CreateFile($SectionData->file('section_image'), $section, 'sections');
+            }
+            return $section;
         }
+
+
         throw new Exception("Item NOt FOund");
     }
 
@@ -71,8 +81,14 @@ class SectionRepository implements CRUDInterface
 
     }
 
-    public function DeleteAll()
+    public function DeleteAll($Data)
     {
+        return Section::whereIn('id', $Data)->forceDelete();
+
+    }
+    public function ArchiveAll($Data)
+    {
+        return Section::whereIn('id', $Data)->delete();
 
     }
     public function ForeverDelete($id)
@@ -94,4 +110,11 @@ class SectionRepository implements CRUDInterface
         }
         throw new Exception("Item NOt FOund");
     }
+    public function RestoreAll($ids)
+    {
+        return Section::withTrashed()
+            ->whereIn('id', $ids)
+            ->restore();
+    }
+
 }

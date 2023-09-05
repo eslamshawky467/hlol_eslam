@@ -6,9 +6,11 @@ use App\Models\Section;
 use App\Traits\WebResponce;
 use Illuminate\Http\Request;
 use App\Services\FileService;
+use App\Http\Requests\DeleteRequest;
 use App\DataTables\SectionsDataTable;
 use App\Http\Requests\SectionRequest;
 use App\Repositories\SectionRepository;
+use App\Http\Requests\SectionAllRequest;
 
 class SectionController extends Controller
 {
@@ -24,6 +26,8 @@ class SectionController extends Controller
 
     public function index(SectionsDataTable $dataTable)
     {
+        // return Section::all();
+        // return request();
         if (request()->ajax()) {
             return $dataTable->ajax()->content();
         }
@@ -91,8 +95,9 @@ class SectionController extends Controller
 
         }
     }
-    public function DeleteForever(Request $request)
+    public function DeleteForever(DeleteRequest $request)
     {
+
         try {
             $this->sectionRepository->ForeverDelete($request->id);
             return $this->success("تم حذف العنصر بنجاح", 'sections.index');
@@ -109,6 +114,38 @@ class SectionController extends Controller
         try {
             $this->sectionRepository->Restore($id);
             return $this->success("تم استعاده العنصر بنجاح", 'sections.index');
+
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), "sections.index");
+
+        }
+    }
+
+    public function ArchiveAll(SectionAllRequest $request)
+    {
+        try {
+            if ($request->action == 'archive') {
+                $this->sectionRepository->ArchiveAll($request->section_ids);
+                return $this->success("تم ارشفه العناصر بنجاح", 'sections.index');
+            }
+            if ($request->action == 'delete') {
+                $this->sectionRepository->DeleteAll($request->section_ids);
+                return $this->success("تم حذف العناصر بنجاح", 'sections.index');
+            }
+
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage(), "sections.index");
+
+        }
+    }
+    public function RestoreAll(SectionAllRequest $request)
+    {
+        // return $request;
+        try {
+            $this->sectionRepository->RestoreAll($request->section_ids);
+            return $this->success("تم استعاده العناصر بنجاح", 'sections.index');
 
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), "sections.index");
