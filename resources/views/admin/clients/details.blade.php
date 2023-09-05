@@ -19,7 +19,109 @@
                         </div>
                     </div>
                     <div class="card-content collpase show">
-                        <div class="card-body">
+                        <section>
+                            <div class="container py-5">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="card mb-4 border border-light rounded" style="height: 360px">
+                                            <div class="card-body text-center">
+                                                <img style="height: 250px" class=" rounded-circle"
+                                                    src='{{ asset('/storage/' . $client->file->first()->file_name) }}'
+                                                    alt="avatar" class="rounded-circle img-fluid"
+                                                    style="width: 150px;">
+                                                <h5 class="my-3">{{ $client->name }}</h5>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="card mb-4 border border-light rounded">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">الاسم بالكامل</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <p class="text-muted mb-0">{{ $client->name }}</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">البريد الالكترونى</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <p class="text-muted mb-0">{{ $client->email }}</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">رقم التليفون</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <p class="text-muted mb-0">{{ $client->phone_number }}</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        توكن الجهاز </div>
+                                                    <div class="col-sm-9">
+                                                        <p class="text-muted mb-0">{{ $client->device_token }}</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">الحاله</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <p class="text-muted mb-0">
+                                                            @if ($client->is_registered == 'active')
+                                                                مفعل
+                                                            @else
+                                                                غير مفعل
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        الجنس </div>
+                                                    <div class="col-sm-9">
+                                                        <p class="text-muted mb-0">
+                                                            @if ($client->gender == 'male')
+                                                                ذكر
+                                                            @else
+                                                                انثى
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        حاله التسجيل </div>
+                                                    <div class="col-sm-9">
+                                                        <p class="text-muted mb-0">
+                                                            @if ($client->is_registered == 1)
+                                                                مسجل
+                                                            @else
+                                                                غير مسجل
+                                                            @endif
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        {{-- <div class="card-body">
                             <div class="form-body">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -121,7 +223,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
