@@ -18,8 +18,30 @@
                                 الاقسام المؤرشفه<span
                                     class="badge badge-info float-lg-right">{{ App\Models\Section::onlyTrashed()->count() }}</span></a>
                         </li>
-                        <li><a class="menu-item" href="project-bugs.html" data-i18n="nav.project.project_bugs">Project
-                                Bugs</a>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
+                            data-i18n="nav.project.main">العملاء</span></a>
+                    <ul class="menu-content">
+                        <li><a class="menu-item" href="{{ route('clients.index') }}"
+                                data-i18n="nav.project.project_summary">عرض العملاء <span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Section::count() }}</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('clients.status.filter', 'active') }}"
+                                data-i18n="nav.project.project_tasks">عرض العملاء المفعلين<span
+                                    class="badge badge-info float-lg-right"></span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('clients.status.filter', 'inactive') }}"
+                                data-i18n="nav.project.project_tasks">عرض العملاء الغير مفعلين<span
+                                    class="badge badge-info float-lg-right"></span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('clients.is.register.filter', '1') }}"
+                                data-i18n="nav.project.project_tasks">عرض العملاء المسجلين<span
+                                    class="badge badge-info float-lg-right"></span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('clients.is.register.filter', '0') }}"
+                                data-i18n="nav.project.project_tasks">عرض العملاء الغير مسجلين<span
+                                    class="badge badge-info float-lg-right"></span></a>
                         </li>
                     </ul>
                 </li>

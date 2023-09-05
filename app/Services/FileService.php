@@ -12,21 +12,21 @@ class FileService
 {
     use FileTrait;
 
-    public function CreateFileDTO($file, $model, $folder)
+    public function CreateFileDTO($file, $model, $folder, $name)
     {
 
         return new FileDTO(
             $file,
             $folder,
-            $model->translate('en')->section_name,
+            $name,
             get_class($model),
             $model->id
         );
 
     }
-    public function CreateFile($file, $model, $folder)
+    public function CreateFile($file, $model, $folder,$name)
     {
-        $data = $this->CreateFileDTO($file, $model, $folder);
+        $data = $this->CreateFileDTO($file, $model, $folder,$name);
 
         $file_name = $this->saveFile($data->file, $data->folder, $data->subFolder);
         $file_type = $this->FileType($data->file->clientExtension());

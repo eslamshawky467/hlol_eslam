@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('sections/archive-all', [SectionController::class, 'ArchiveAll'])->name('sections.muliple.archive');
     Route::post('sections/restore-all', [SectionController::class, 'RestoreAll'])->name('sections.muliple.restore');
     Route::resource("sections", \SectionController::class);
+    Route::resource("clients", \ClientController::class);
+    Route::get('/client/change-status/{id}', [ClientController::class, 'changeStatus'])->name('clients.change.status');
+    Route::post('/clients/change-status-all', [ClientController::class, 'ChangeStatusAll'])->name('clients.change.status.all');
+    Route::get('/clients/status/{status}', [ClientController::class, 'SatatusSection'])->name('clients.status.filter');
+    Route::get('/clients/is-register/{is_registered}', [ClientController::class, 'IsRegisterSection'])->name('clients.is.register.filter');
+
 });

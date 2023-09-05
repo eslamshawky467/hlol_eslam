@@ -61,9 +61,10 @@ class SectionsDataTable extends DataTable
                     return "قسم رئيسى";
 
 
-            })->editColumn('id', function ($row) {
-            return "<input type='checkbox' name='section_ids[]' value='$row->id'/>";
-        })
+            })
+            ->editColumn('id', function ($row) {
+                return "<input type='checkbox' name='section_ids[]' value='$row->id'/>";
+            })
         ;
     }
 
@@ -106,7 +107,7 @@ class SectionsDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(60)
+                ->width(200)
                 ->addClass('text-center'),
             Column::make('id'),
             Column::make('section_name'),

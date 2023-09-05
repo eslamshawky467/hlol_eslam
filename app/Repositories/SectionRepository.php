@@ -4,13 +4,14 @@ namespace App\Repositories;
 
 use Exception;
 use App\DTO\SectionDTO;
+use App\Models\Section;
 use App\Enums\MessagesEnum;
+use App\Services\FileService;
 use App\Services\SectionService;
 use App\Interfaces\CRUDInterface;
-use App\Models\Section;
-use App\Services\FileService;
+use App\Interfaces\CustomInterface;
 
-class SectionRepository implements CRUDInterface
+class SectionRepository implements CRUDInterface, CustomInterface
 {
     private $sectionService;
     private $fileService;
@@ -43,7 +44,7 @@ class SectionRepository implements CRUDInterface
 
         if ($SectionData->hasFile('section_image')) {
 
-            $this->fileService->CreateFile($SectionData->file('section_image'), $section, 'sections');
+            $this->fileService->CreateFile($SectionData->file('section_image'), $section, 'sections', $section->translate('en')->section_name);
 
         }
         return $section;
@@ -62,7 +63,7 @@ class SectionRepository implements CRUDInterface
 
             if ($SectionData->hasFile('section_image')) {
                 $this->fileService->DeleteFile($section, 'uploads/sections/' . $Section->translate('en')->section_name);
-                $this->fileService->CreateFile($SectionData->file('section_image'), $section, 'sections');
+                $this->fileService->CreateFile($SectionData->file('section_image'), $section, 'sections', $section->translate('en')->section_name);
             }
             return $section;
         }

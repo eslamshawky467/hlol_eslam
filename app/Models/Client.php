@@ -49,4 +49,8 @@ class Client extends Authenticatable implements JWTSubject
         return $this->hasMany(Location::class);
 
     }
+    public function file()
+    {
+        return $this->morphMany(File::class, 'Fileable');
+    }
 }
