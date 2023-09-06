@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\FQAController;
+use App\Http\Controllers\SettingsConroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +37,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/clients/change-status-all', [ClientController::class, 'ChangeStatusAll'])->name('clients.change.status.all');
     Route::get('/clients/status/{status}', [ClientController::class, 'SatatusSection'])->name('clients.status.filter');
     Route::get('/clients/is-register/{is_registered}', [ClientController::class, 'IsRegisterSection'])->name('clients.is.register.filter');
+
+
+    Route::get('/settings/technical-support', [SettingsConroller::class, 'TechnicalSupport'])->name('settings.technical.support');
+    Route::get('/settings/about-us', [SettingsConroller::class, 'AboutUs'])->name('settings.About.Us');
+    Route::post('/settings/store', [SettingsConroller::class, 'store'])->name('settings.store');
+    Route::get('/settings/fqa', [FQAController::class, 'index'])->name('settings.fqa.index');
+    Route::get('/settings/fqa/create', [FQAController::class, 'createOrUpdate'])->name('settings.fqa.create');
+    Route::get('/settings/fqa/update/{id}', [FQAController::class, 'createOrUpdate'])->name('settings.fqa.update');
+    Route::post('/settings/fqa/delete', [FQAController::class, 'delete'])->name('settings.fqa.delete');
+    Route::post('/settings/fqa/delete-all', [FQAController::class, 'DeleteAll'])->name('settings.fqa.delete.all');
 
 });
