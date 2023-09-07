@@ -46,6 +46,16 @@
                     </ul>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
+                            data-i18n="nav.project.main">اللافتات</span></a>
+                    <ul class="menu-content">
+                        <li><a class="menu-item" href="{{ route('banners.index') }}"
+                                data-i18n="nav.project.project_summary">عرض اللافتات <span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Banner::count() }}</span></a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
                             data-i18n="nav.project.main">الاعدادت</span></a>
                     <ul class="menu-content">
                         <li><a class="menu-item" href="/settings/about-us" data-i18n="nav.project.project_summary">

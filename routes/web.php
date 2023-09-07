@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\BannersController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FQAController;
 use App\Http\Controllers\SettingsConroller;
@@ -48,4 +49,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/settings/fqa/delete', [FQAController::class, 'delete'])->name('settings.fqa.delete');
     Route::post('/settings/fqa/delete-all', [FQAController::class, 'DeleteAll'])->name('settings.fqa.delete.all');
 
+    // ----------------------------------banner routes------------------------------------
+    Route::get('/banners',[BannersController::class,'index'])->name('banners.index');
+    Route::get('/banners/create', [BannersController::class, 'create'])->name('banners.create');
+    Route::post('/banners/store', [BannersController::class, 'store'])->name('banners.store');
+    Route::get('/banners/edit/{id}', [BannersController::class, 'edit'])->name('banners.edit');
+    Route::post('/banners/update', [BannersController::class, 'update'])->name('banners.update');
+    Route::post('/banners/delete', [BannersController::class, 'destroy'])->name('banners.destroy');
+    Route::post('/banners/banner-all', [BannersController::class, 'BannerAll'])->name('banners.banner.all');
+    Route::get('/banners/change-status/{id}', [BannersController::class, 'changeStatus'])->name('banners.change.status');
 });
