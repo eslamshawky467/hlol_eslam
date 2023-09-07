@@ -51,7 +51,10 @@ class BannerDataTable extends DataTable
      */
     public function query(Banner $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()
+            ->when($this->status != null, function ($query) {
+                $query->where('status', '=', $this->status);
+            });
     }
 
     /**

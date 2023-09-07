@@ -1,14 +1,14 @@
-<x-admin title="العملاء">
+<x-admin title="لافتات">
     <x-slot name="breadcrumbs">
         <div class="content-wrapper">
             <div class="content-header row">
-                <x-bread-crumbs title="العملاء">
+                <x-bread-crumbs title="لافتات">
 
                 </x-bread-crumbs>
                 <div class="content-header-right col-md-6 col-12">
                     <div class=" float-md-right">
-                        <a href="{{ route('clients.create') }}" class="btn btn-primary round btn-glow px-2"
-                            type="button">انشاء عميل جديد</a>
+                        <a href="{{ route('banners.create') }}" class="btn btn-primary round btn-glow px-2"
+                            type="button">انشاء لافته جديد</a>
 
                     </div>
                 </div>
@@ -23,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">قائمه العملاء</h4>
+                        <h4 class="card-title">قائمه اللافتات</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -43,18 +43,17 @@
                                 الكل</button>
                             <button onClick="deCheckAll(this)"
                                 class="btn btn-outline-info ml-1 mb-3 float-lg-right">تصفيه</button>
-                            <form action="{{ route('clients.change.status.all') }}" method="POST">
+                            <form action="{{ route('banners.banner.all') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="btn btn-outline-danger ml-1 mb-3 float-lg-right"
-                                    name="action" value="delete"> تفعيل /تعطيل الكل</button>
-                                <table class="table table-striped table-bordered clients-table table-responsive">
+                                    name="action" value="status"> تفعيل /تعطيل الكل</button>
+                                <button type="submit" class="btn btn-outline-danger ml-1 mb-3 float-lg-right"
+                                    name="action" value="delete"> حذف الكل</button>
+                                <table class="table table-striped table-bordered banners-tabl">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>الاسم</th>
-                                            {{-- <th>الاميل</th> --}}
-                                            <th>الهاتف</th>
-                                            <th> مسجل</th>
                                             <th> الحاله</th>
                                             <th>العمليات</th>
                                         </tr>
@@ -66,6 +65,8 @@
                     </div>
                 </div>
             </div>
+            @include('admin.banners.delete-modal')
+
         </div>
     </section>
     @push('css')
@@ -93,7 +94,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                $('.clients-table').DataTable({
+                $('.banners-tabl').DataTable({
                     processing: true,
                     serverSide: true,
                     searching: true,
@@ -103,7 +104,7 @@
                         'print',
                         'excel'
                     ],
-                    ajax: "{{ route('clients.status.filter', Request::route('status')) }}",
+                    ajax: "{{ route('banners.status.filter', Request::route('status')) }}",
                     columns: [{
                             data: 'id',
                             name: 'id'
@@ -111,18 +112,6 @@
                         {
                             data: 'name',
                             name: 'name'
-                        },
-                        // {
-                        //     data: 'email',
-                        //     name: 'email'
-                        // },
-                        {
-                            data: 'phone_number',
-                            name: 'phone_number'
-                        },
-                        {
-                            data: 'is_registered',
-                            name: 'is_registered'
                         },
                         {
                             data: 'status',
@@ -145,17 +134,17 @@
             $('#defaultSize').on('shown.bs.modal', function(event) {
                 var button = $(event.relatedTarget)
                 var id = button.data('id')
-                var section_name = button.data('name')
+                var banner_name = button.data('name')
                 console.log(id);
                 var modal = $(this)
-                document.getElementById('section_id').value = id;
-                document.getElementById('section_name').textContent = "  هل متاكد من حذف القسم : " + section_name
+                document.getElementById('banner_id').value = id;
+                document.getElementById('banner_name').textContent = "  هل متاكد من حذف القسم : " + banner_name
 
             });
         </script>
         <script language="JavaScript">
             function checkAll(source) {
-                var ele = document.getElementsByName('clients_ids[]');
+                var ele = document.getElementsByName('banners_ids[]');
                 for (var i = 0; i < ele.length; i++) {
                     if (ele[i].type == 'checkbox')
                         ele[i].checked = true;
@@ -163,7 +152,7 @@
             }
 
             function deCheckAll() {
-                var ele = document.getElementsByName('clients_ids[]');
+                var ele = document.getElementsByName('banners_ids[]');
                 for (var i = 0; i < ele.length; i++) {
                     if (ele[i].type == 'checkbox')
                         ele[i].checked = false;

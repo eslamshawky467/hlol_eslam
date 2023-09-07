@@ -121,4 +121,13 @@ class BannersController extends Controller
         }
     }
 
+    public function SatatusBanner(BannerDataTable $dataTable, $status)
+    {
+
+        if (request()->ajax()) {
+            return $dataTable->with('status', $status)->ajax()->content();
+        }
+        return view('admin.banners.status-filter');
+    }
+
 }

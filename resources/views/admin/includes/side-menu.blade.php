@@ -52,6 +52,14 @@
                                 data-i18n="nav.project.project_summary">عرض اللافتات <span
                                     class="badge badge-info float-lg-right">{{ App\Models\Banner::count() }}</span></a>
                         </li>
+                        <li><a class="menu-item" href="{{ route('banners.status.filter', 1) }}"
+                                data-i18n="nav.project.project_tasks">عرض اللافتات المفعله<span
+                                    class="badge badge-info float-lg-right"></span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('banners.status.filter',0) }}"
+                                data-i18n="nav.project.project_tasks">عرض اللافتات الغير مفعله<span
+                                    class="badge badge-info float-lg-right"></span></a>
+                        </li>
 
                     </ul>
                 </li>

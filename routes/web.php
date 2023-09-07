@@ -58,4 +58,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/banners/delete', [BannersController::class, 'destroy'])->name('banners.destroy');
     Route::post('/banners/banner-all', [BannersController::class, 'BannerAll'])->name('banners.banner.all');
     Route::get('/banners/change-status/{id}', [BannersController::class, 'changeStatus'])->name('banners.change.status');
+    Route::get('/banners/status/{status}', [BannersController::class, 'SatatusBanner'])->name('banners.status.filter');
+
 });
