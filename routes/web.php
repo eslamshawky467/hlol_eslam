@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FQAController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SettingsConroller;
 
 /*
@@ -50,7 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/settings/fqa/delete-all', [FQAController::class, 'DeleteAll'])->name('settings.fqa.delete.all');
 
     // ----------------------------------banner routes------------------------------------
-    Route::get('/banners',[BannersController::class,'index'])->name('banners.index');
+    Route::get('/banners', [BannersController::class, 'index'])->name('banners.index');
     Route::get('/banners/create', [BannersController::class, 'create'])->name('banners.create');
     Route::post('/banners/store', [BannersController::class, 'store'])->name('banners.store');
     Route::get('/banners/edit/{id}', [BannersController::class, 'edit'])->name('banners.edit');
@@ -59,5 +60,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/banners/banner-all', [BannersController::class, 'BannerAll'])->name('banners.banner.all');
     Route::get('/banners/change-status/{id}', [BannersController::class, 'changeStatus'])->name('banners.change.status');
     Route::get('/banners/status/{status}', [BannersController::class, 'SatatusBanner'])->name('banners.status.filter');
+    // ----------------------------------service routes------------------------------------
+    Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
+    Route::get('/services/create', [ServicesController::class, 'create'])->name('services.create');
+    Route::post('/services/store', [ServicesController::class, 'store'])->name('services.store');
+    Route::get('/services/edit/{id}', [ServicesController::class, 'edit'])->name('services.edit');
+    Route::post('/services/update', [ServicesController::class, 'update'])->name('services.update');
+    Route::post('/services/delete', [ServicesController::class, 'destroy'])->name('services.destroy');
+    Route::post('/services/restore', [ServicesController::class, 'Restore'])->name('services.Restore');
+    Route::post('/services/services-all', [ServicesController::class, 'ServicesAll'])->name('services.all');
+    Route::get('/services/change-status/{id}', [ServicesController::class, 'changeStatus'])->name('services.change.status');
+    Route::get('/services/status/{status}', [ServicesController::class, 'SatatusService'])->name('services.status.filter');
+    Route::get('/services/archived-services', [ServicesController::class, 'ArchivedServices'])->name('services.archived.services');
+
 
 });

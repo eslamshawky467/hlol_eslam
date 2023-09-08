@@ -76,7 +76,8 @@ class SectionsDataTable extends DataTable
      */
     public function query(Section $model)
     {
-        return $model->newQuery()->when($this->trash != null, function ($query) {
+        return $model->newQuery()
+        ->when($this->trash != null, function ($query) {
             $query->onlyTrashed();
         })->with('file');
     }

@@ -46,6 +46,28 @@
                     </ul>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
+                            data-i18n="nav.project.main">الخدمات</span></a>
+                    <ul class="menu-content">
+                        <li><a class="menu-item" href="{{ route('services.index') }}"
+                                data-i18n="nav.project.project_summary">عرض الخدمات <span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Service::count() }}</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('services.status.filter', 1) }}"
+                                data-i18n="nav.project.project_tasks">عرض الخدمات المفعله<span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Service::where('status', '=', 1)->count() }}</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('services.status.filter', 0) }}"
+                                data-i18n="nav.project.project_tasks">عرض الخدمات الغير مفعله <span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Service::where('status', '=', 0)->count() }}</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('services.archived.services') }}"
+                                data-i18n="nav.project.project_tasks">عرض
+                                الخدمات المؤرشفه<span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Service::onlyTrashed()->count() }}</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
                             data-i18n="nav.project.main">اللافتات</span></a>
                     <ul class="menu-content">
                         <li><a class="menu-item" href="{{ route('banners.index') }}"
@@ -56,7 +78,7 @@
                                 data-i18n="nav.project.project_tasks">عرض اللافتات المفعله<span
                                     class="badge badge-info float-lg-right"></span></a>
                         </li>
-                        <li><a class="menu-item" href="{{ route('banners.status.filter',0) }}"
+                        <li><a class="menu-item" href="{{ route('banners.status.filter', 0) }}"
                                 data-i18n="nav.project.project_tasks">عرض اللافتات الغير مفعله<span
                                     class="badge badge-info float-lg-right"></span></a>
                         </li>

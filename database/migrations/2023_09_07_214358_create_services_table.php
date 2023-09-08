@@ -19,6 +19,7 @@ class CreateServicesTable extends Migration
             $table->string('name_ar');
             $table->string('name_en');
             $table->tinyInteger('status')->default(1);
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

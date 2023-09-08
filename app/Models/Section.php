@@ -32,4 +32,9 @@ class Section extends Model
     {
         return $this->morphMany(File::class, 'Fileable');
     }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
 }
