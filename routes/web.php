@@ -6,6 +6,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\BannersController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\FQAController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SettingsConroller;
@@ -72,6 +73,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/services/change-status/{id}', [ServicesController::class, 'changeStatus'])->name('services.change.status');
     Route::get('/services/status/{status}', [ServicesController::class, 'SatatusService'])->name('services.status.filter');
     Route::get('/services/archived-services', [ServicesController::class, 'ArchivedServices'])->name('services.archived.services');
+    // ----------------------------------Coupons routes------------------------------------
+    Route::get('/coupons', [CouponsController::class, 'index'])->name('coupons.index');
+    Route::get('/coupons/create', [CouponsController::class, 'create'])->name('coupons.create');
+    Route::post('/coupons/store', [CouponsController::class, 'store'])->name('coupons.store');
+    Route::get('/coupons/edit/{id}', [CouponsController::class, 'edit'])->name('coupons.edit');
+    Route::post('/coupons/update', [CouponsController::class, 'update'])->name('coupons.update');
+    Route::post('/coupons/delete', [CouponsController::class, 'destroy'])->name('coupons.destroy');
+    Route::post('/coupons/restore', [CouponsController::class, 'Restore'])->name('coupons.Restore');
+    Route::post('/coupons/coupons-all', [CouponsController::class, 'ServicesAll'])->name('coupons.all');
+    Route::get('/coupons/change-status/{id}', [CouponsController::class, 'changeStatus'])->name('coupons.change.status');
+    Route::get('/coupons/status/{status}', [CouponsController::class, 'SatatusService'])->name('coupons.status.filter');
+    Route::get('/coupons/archived-coupons', [CouponsController::class, 'ArchivedServices'])->name('coupons.archived.coupons');
 
 
 });

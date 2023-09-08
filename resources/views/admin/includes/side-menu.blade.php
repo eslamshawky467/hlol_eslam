@@ -86,6 +86,28 @@
                     </ul>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
+                            data-i18n="nav.project.main">الخصومات</span></a>
+                    <ul class="menu-content">
+                        <li><a class="menu-item" href="{{ route('coupons.index') }}"
+                                data-i18n="nav.project.project_summary">عرض الخصومات <span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Coupon::count() }}</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('coupons.status.filter', 1) }}"
+                                data-i18n="nav.project.project_tasks">عرض الخصومات المفعله<span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Coupon::where('status', '=', 1)->count() }}</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('coupons.status.filter', 0) }}"
+                                data-i18n="nav.project.project_tasks">عرض الخصومات الغير مفعله <span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Coupon::where('status', '=', 0)->count() }}</span></a>
+                        </li>
+                        <li><a class="menu-item" href="{{ route('coupons.archived.coupons') }}"
+                                data-i18n="nav.project.project_tasks">عرض
+                                الخصومات المؤرشفه<span
+                                    class="badge badge-info float-lg-right">{{ App\Models\Coupon::onlyTrashed()->count() }}</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
                             data-i18n="nav.project.main">الاعدادت</span></a>
                     <ul class="menu-content">
                         <li><a class="menu-item" href="/settings/about-us" data-i18n="nav.project.project_summary">
