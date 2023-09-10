@@ -34,9 +34,14 @@ class ClientAuthController extends Controller
             'is_registered'=>1,
             'status'=>'active',
         ]);
+        $location = Location::create([
+            'lat'=>$request->lat,
+            'long'=>$request->long,
+            'location'=>$request->location,
+        ]);
         return response()->json([
             'message' =>trans('auth.register.success'),
-             'item' => Client::where('id',auth('client')->user()->id)->first(),
+             'item' => Client::where('id',auth('client')->user()->id)->with('locations')->first(),
         ], 200);
         }
         else
@@ -49,7 +54,7 @@ class ClientAuthController extends Controller
         ]);
         return response()->json([
             'message' =>trans('auth.register.success'),
-            'item'=> Client::where('id',auth('client')->user()->id)->first(),
+            'item'=> Client::where('id',auth('client')->user()->id)->with('locations')->first(),
         ],200);
     }
     public function login(Request $request){
@@ -67,7 +72,6 @@ class ClientAuthController extends Controller
             $status=$provider->status;
             if($status=='inactive') {
                 return response()->json(['message' =>trans('admin.unoooooo'),
-                'item'=>[],
             ],401);
             }
             else{
@@ -101,24 +105,24 @@ class ClientAuthController extends Controller
         if($name != null){
         return response()->json([
             'message'=>'success',
-            'items' =>
+            'item' =>
             [
-            'item' =>auth('client')->user(),
+            'user' =>Client::where('id',auth('client')->user()->id)->with('locations')->first(),
             'access_token' => $token,
             'token_type' => 'bearer',
-            'is_registered'=>1
+            'is_registered'=>true
             ],
         ],200);
         }
         else
         return response()->json([
             'message'=>'success',
-           'items' =>
+           'item' =>
            [
-            'item'=>auth('client')->user(),
+            'user' =>Client::where('id',auth('client')->user()->id)->with('locations')->first(),
             'access_token' => $token,
             'token_type' => 'bearer',
-            'is_registered'=>0
+            'is_registered'=>false
             ],
         ],200);
     }
@@ -141,7 +145,7 @@ class ClientAuthController extends Controller
     {
         return response()->json([
             'message' => 'Success',
-            'item'=>auth('client')->user(),
+            'item'=>['user'=>Client::where('id',auth('client')->user()->id)->with('locations')->first()]
         ], 200);
     }
 
@@ -212,18 +216,15 @@ public function store_location(Request $request){
     if ($validator->fails()) {
         return response()->json(['message'=>$validator->errors()->first()],422);
     }
-
-foreach ($request->locations as $location) {
     $location = Location::create([
         'client_id' => auth('client')->user()->id,
-        'lat' => $location['lat'],
-        'long' => $location['long'],
-        'location' => $location['location'],
+        'lat' => $request->lat,
+        'long' => $request->long,
+        'location' => $request->location,
          ]);
-}
 return response()->json([
     'message'=>'Successfully',
-    'items'=>$request->locations,
+    'items'=>$request->location,
 ],200);
 }
 public function update_location(Request $request){

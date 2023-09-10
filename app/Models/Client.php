@@ -29,6 +29,7 @@ class Client extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_registered'=>'boolean',
     ];
     public function getJWTIdentifier()
     {

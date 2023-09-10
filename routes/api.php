@@ -24,5 +24,6 @@ Route::group(['namespace' => 'Auth', 'prefix' => 'auth/user', 'middleware' =>['c
         Route::get('allLocation', [ClientAuthController::class, 'get_all_locations']);
         Route::post('deleteLocation', [ClientAuthController::class,'remove_location']);
         Route::get('Home/{id}', [HomeController::class, 'get_category_by_id']);
+        Route::get('Homes/{id}', [HomeController::class, 'home']);
 
     });

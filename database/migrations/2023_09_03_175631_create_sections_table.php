@@ -17,6 +17,8 @@ class CreateSectionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string("active")->default(1);
+            $table->double("price")->default(0);
+            $table->string("image",255)->nullable();
             $table->softDeletes();
             $table->foreign('parent_id')->references('id')->on('sections')->onDelete('cascade');
             $table->timestamps();
