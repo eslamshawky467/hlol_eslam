@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Section extends Model
 {
     use HasFactory, Translatable, SoftDeletes;
-    protected $with = ['translations'];
+    //protected $with = ['translations'];
     public $translatedAttributes = ['section_name'];
     protected $fillable = ['image', 'parent_id', 'active'];
 

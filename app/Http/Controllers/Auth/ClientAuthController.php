@@ -250,6 +250,7 @@ return response()->json([
 ],200);
 }
 public function get_all_locations(){
+
     $location = Location::where('client_id',auth('client')->user()->id)->get();
     return response()->json([
         'message'=>'Successfully',

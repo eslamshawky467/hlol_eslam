@@ -1,4 +1,4 @@
-@props(['title'])
+@props(['title'=>'hlol'])
 
 <div class="content-header-left col-md-6 col-12 mb-2 breadcrumb-new">
     <h3 class="content-header-title mb-0 d-inline-block">{{ $title }}</h3>
