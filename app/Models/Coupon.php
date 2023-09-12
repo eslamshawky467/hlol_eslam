@@ -10,4 +10,8 @@ class Coupon extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['name', 'amount', 'type', 'status', 'start_at', 'end_at'];
+    protected $dates = ['end_at'];
+    protected $casts=[
+        'amount' => 'integer',
+    ];
 }
