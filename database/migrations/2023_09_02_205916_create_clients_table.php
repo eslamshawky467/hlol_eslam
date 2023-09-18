@@ -21,6 +21,7 @@ class CreateClientsTable extends Migration
             $table->enum('gender',['male','female'])->nullable();
             $table->string('phone_number')->unique();
             $table->string('image')->nullable();
+            $table->string('country_code')->nullable();
             $table->integer('is_registered')->default(0);
             $table->enum('status',['active','inactive'])->nullable();
             $table->timestamps();

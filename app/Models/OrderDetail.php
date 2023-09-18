@@ -17,4 +17,9 @@ class OrderDetail extends Model
     {
         return $this->belongsTo(Order::class,'order_id');
     }
+    public function item()
+    {
+        return $this->belongsTo(Section::class,'parent_id');
+    }
+
 }

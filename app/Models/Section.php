@@ -24,6 +24,7 @@ class Section extends Model
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
+    
     public function scopeParent($query)
     {
         return $query->whereNull('parent_id');

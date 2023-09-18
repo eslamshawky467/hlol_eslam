@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Banner extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'status'];
+    protected $fillable = ['name', 'status','link'];
     public function file()
     {
         return $this->morphMany(File::class, 'Fileable');

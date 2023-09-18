@@ -15,7 +15,10 @@ class ClientAuthController extends Controller
                 'name'=> 'required|string',
                 'email' =>'email|unique:clients',
                 'image'=>'image',
-                'gender'=>'required'
+                'gender'=>'required',
+                'long'=>'required',
+                'lat' => 'required',
+                'location'=>' required',
             ]);
         if ($validator->fails()) {
             return response()->json(['message'=>$validator->errors()->first()],422);
@@ -34,14 +37,15 @@ class ClientAuthController extends Controller
             'is_registered'=>1,
             'status'=>'active',
         ]);
-        $location = Location::create([
+         Location::create([
             'lat'=>$request->lat,
             'long'=>$request->long,
             'location'=>$request->location,
+            'client_id'=>auth('client')->user()->id
         ]);
         return response()->json([
             'message' =>trans('auth.register.success'),
-             'item' => Client::where('id',auth('client')->user()->id)->with('locations')->first(),
+             'item' => Client::where('id',auth('client')->user()->id)->with('location')->first(),
         ], 200);
         }
         else
@@ -52,9 +56,15 @@ class ClientAuthController extends Controller
             'is_registered'=>1,
             'status'=>'active',
         ]);
+        Location::create([
+            'lat'=>$request->lat,
+            'long'=>$request->long,
+            'location'=>$request->location,
+            'client_id'=>auth('client')->user()->id
+        ]);
         return response()->json([
             'message' =>trans('auth.register.success'),
-            'item'=> Client::where('id',auth('client')->user()->id)->with('locations')->first(),
+            'item'=> Client::where('id',auth('client')->user()->id)->with('location')->first(),
         ],200);
     }
     public function login(Request $request){
@@ -89,11 +99,9 @@ class ClientAuthController extends Controller
                 ['status'=>'active'],
                 ['device_token'=> $request->device_token],
                 ['is_registered'=> 0],
+                ['country_code'=>$request->country_code],
             ));
             $token= auth()->guard('client')->login($client);
-            Client::where('phone_number', $request->phone_number)->update([
-                'device_token'=>$request->device_token,
-            ]);
             return $this->respondWithToken($token);
         }
     }
@@ -107,7 +115,7 @@ class ClientAuthController extends Controller
             'message'=>'success',
             'item' =>
             [
-            'user' =>Client::where('id',auth('client')->user()->id)->with('locations')->first(),
+            'user' =>Client::where('id',auth('client')->user()->id)->with('location')->first(),
             'access_token' => $token,
             'token_type' => 'bearer',
             'is_registered'=>true
@@ -119,7 +127,7 @@ class ClientAuthController extends Controller
             'message'=>'success',
            'item' =>
            [
-            'user' =>Client::where('id',auth('client')->user()->id)->with('locations')->first(),
+            'user' =>Client::where('id',auth('client')->user()->id)->with('location')->first(),
             'access_token' => $token,
             'token_type' => 'bearer',
             'is_registered'=>false
@@ -145,7 +153,7 @@ class ClientAuthController extends Controller
     {
         return response()->json([
             'message' => 'Success',
-            'item'=>['user'=>Client::where('id',auth('client')->user()->id)->with('locations')->first()]
+            'item'=>['user'=>Client::where('id',auth('client')->user()->id)->with('location')->first()]
         ], 200);
     }
 
@@ -209,7 +217,9 @@ return response()->json([
 
 public function store_location(Request $request){
     $validator = Validator::make($request->all(), [
-         'locations'=>' required',
+        'long'=>'required',
+        'lat' => 'required',
+        'location'=>' required',
      ],[
     'locations.required'=>trans('auth.locationrequired'),
      ]);
