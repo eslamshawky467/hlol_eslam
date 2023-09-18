@@ -129,7 +129,6 @@ else{
         $total=$total_price+ $tax + $delivery - $coupon;
         OrderDetail::where('order_id', $id)->update([
             'cost' => $total_price,
-            'total_price'=>$total,
         ]);
         Order::where('id', $id)->update([
         'cost' => $total_price,
@@ -149,15 +148,23 @@ else{
         ], 200);
     }
 
-public function order_list(Request $request){
-        $order = OrderDetail::where('client_id',auth('client')->user()->id)->
+
+    public function order_list(Request $request){
+        $order = Order::where('client_id',auth('client')->user()->id)->
             when($request->has('status'), function ($query) use ($request) {
                 $query->where('order_status', $request->status);
             })
             ->when($request->has('date'), function ($query) use ($request) {
                 $query->whereDate('date', $request->date);
-            })
-            ->with('items')->get();
+            })->get();
+
+
+           $items=$order->map(function ($order){
+            $order_detail=OrderDetail::where('order_id',$order->id)->get(['parent_id']);
+           $items = Section::whereIn('id',$order_detail)->get();
+            $order['items']=$items;
+            return $order;
+        });
         if (!$order) {
             return response()->json([
                 'message' => 'Success',
@@ -169,6 +176,9 @@ public function order_list(Request $request){
             'items' => $order,
         ], 200);
 }
+
+
+
 public function get_order_by_id($id){
 
     //$order_detail = OrderDetail::where('id',23)->first();

@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Cost extends Model
 {
     protected $guarded = [];
-    
+    protected $casts = [
+        'tax' => 'double',
+        'delivery'=>'double',
+    ];
+
 }

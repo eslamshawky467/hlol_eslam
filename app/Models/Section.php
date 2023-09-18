@@ -15,6 +15,11 @@ class Section extends Model
     public $translatedAttributes = ['section_name'];
     protected $fillable = ['image', 'parent_id', 'active'];
 
+    protected $casts = [
+        'parent_id' => 'integer',
+        'price'=>'double',
+    ];
+
     public function _Parent()
     {
         return $this->belongsTo(self::class, 'parent_id', 'id');
@@ -24,7 +29,7 @@ class Section extends Model
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
-    
+
     public function scopeParent($query)
     {
         return $query->whereNull('parent_id');

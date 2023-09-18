@@ -47,7 +47,7 @@ class Client extends Authenticatable implements JWTSubject
     }
     public function location()
     {
-        return $this->hasMany(Location::class);
+        return $this->hasOne(Location::class);
 
     }
     public function file()

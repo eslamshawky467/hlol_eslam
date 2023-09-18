@@ -11,6 +11,18 @@ class Order extends Model
     //protected $casts=[
      //   'amount' => 'integer',
     //];
+    protected $casts = [
+        'parent_id' => 'integer',
+        'client_id'=>'integer',
+        'price'=>'double',
+        'cost'=>'double',
+        'quantity'=>'integer',
+        'coupon'=>'double',
+        'location_id'=>'integer',
+        'total_price'=>'double',
+
+
+    ];
     protected $dates = ['created_at'];
 
     public function details()
